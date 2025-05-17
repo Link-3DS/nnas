@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "aes-key": "bash generate-aes-key.sh",
-    "start": "node index.js"
+    "start": "node index.js",
+    "docker": "bash start-docker.sh"
   },
   "repository": {
     "type": "git",
