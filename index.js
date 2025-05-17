@@ -4,6 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const xml2js = require('xml2js');
 const logger = require('./logger');
+const database = require('./database');
 
 const conntest = require('./routes/conntest');
 const nnas = require('./routes/nnas');
@@ -38,5 +39,6 @@ app.use(conntest);
 app.use(nnas);
 
 app.listen(process.env.HTTP_PORT, () => {
+  database.connect();
   logger.success(`Server is running on port ${process.env.HTTP_PORT}.`);
 });

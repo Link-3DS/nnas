@@ -1,11 +1,9 @@
 const { Router } = require('express');
 
-const content = require('./content');
-const devices = require('./devices');
-
 const router = Router();
 
-router.use('/api/content', content);
-router.use('/api/devices', devices);
+router.use('/api/content', require('./content'));
+router.use('/api/devices', require('./devices'));
+router.use('/api/people', require('./people'));
 
 module.exports = router;
