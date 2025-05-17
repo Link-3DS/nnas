@@ -1,0 +1,34 @@
+{
+  "name": "nnas",
+  "version": "1.0.0",
+  "description": "Link3DS NNAS Replacement for Wii U/3DS.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "aes-key": "bash generate-aes-key.sh",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Link-3DS/nnas.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Link-3DS/nnas/issues"
+  },
+  "homepage": "https://github.com/Link-3DS/nnas#readme",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "colors": "^1.4.0",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "express-subdomain": "^1.0.6",
+    "moment": "^2.30.1",
+    "reflect-metadata": "^0.2.2",
+    "xml2js": "^0.6.2",
+    "xmlbuilder": "^15.1.1"
+  }
+}
