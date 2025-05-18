@@ -30,49 +30,29 @@ async function query(text, params) {
 
 async function initializeTables() {
   try {
-        await pool.query(`
-        CREATE TABLE IF NOT EXISTS lnid (
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS lnids (
         id SERIAL PRIMARY KEY,
+        pid INTEGER NOT NULL UNIQUE,
         deleted BOOLEAN DEFAULT FALSE,
         permissions BIGINT DEFAULT 0,
         account_level INTEGER DEFAULT 0,
-        pid INTEGER UNIQUE,
-        creation_date TEXT,
-        updated TEXT,
-        username VARCHAR(16) UNIQUE CHECK (char_length(username) >= 6),
-        usernameLower VARCHAR(255) UNIQUE,
-        password TEXT,
-        birthdate TEXT,
-        gender TEXT,
-        country TEXT,
-        language TEXT,
-        email_address TEXT,
-        email_primary BOOLEAN,
-        email_parent BOOLEAN,
-        email_reachable BOOLEAN,
-        email_validated BOOLEAN,
-        email_validated_date TEXT,
-        email_id INTEGER,
-        region INTEGER,
-        timezone_name TEXT,
-        timezone_offset INTEGER,
-        mii_name TEXT,
-        mii_primary BOOLEAN,
-        mii_data TEXT,
-        mii_id INTEGER,
-        mii_hash TEXT,
-        mii_image_url TEXT,
-        mii_image_id INTEGER,
-        flags_active BOOLEAN,
-        flags_marketing BOOLEAN,
-        flags_off_device BOOLEAN,
-        devices JSONB,
-        identification_email_code TEXT UNIQUE,
-        identification_email_token TEXT UNIQUE,
-        access_token_value TEXT,
-        access_token_ttl INTEGER,
-        refresh_token_value TEXT,
-        refresh_token_ttl INTEGER
+        server_level VARCHAR(10) DEFAULT 'prod',
+        creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        username VARCHAR(16) NOT NULL UNIQUE,
+        usernameLower VARCHAR(255) NOT NULL UNIQUE,
+        password TEXT NOT NULL,
+        birthdate VARCHAR(20) NOT NULL,
+        gender VARCHAR(10) NOT NULL,
+        country VARCHAR(10) NOT NULL,
+        language VARCHAR(10) NOT NULL,
+        email JSON NOT NULL,
+        region VARCHAR(10) NOT NULL,
+        timezone JSON NOT NULL,
+        mii JSON NOT NULL,
+        flags JSON NOT NULL,
+        identification JSON NOT NULL
       );
     `);
 

@@ -14,14 +14,15 @@
     "url": "git+https://github.com/Link-3DS/nnas.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Link3DS Contributors",
+  "license": "MIT",
   "type": "commonjs",
   "bugs": {
     "url": "https://github.com/Link-3DS/nnas/issues"
   },
   "homepage": "https://github.com/Link-3DS/nnas#readme",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "body-parser": "^2.2.0",
     "colors": "^1.4.0",
     "dotenv": "^16.5.0",

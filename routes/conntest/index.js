@@ -5,7 +5,7 @@ const logger = require('../../logger');
 const conntest = Router();
 
 conntest.get('/', (req, res) => {
-  res.send('OK');
+  res.send('ok');
 });
 
 const router = Router();
