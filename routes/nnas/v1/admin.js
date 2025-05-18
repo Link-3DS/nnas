@@ -8,3 +8,5 @@ router.get('/time', async (req, res) => {
 	res.set('Date', new Date().toUTCString());
 	res.send('');
 });
+
+module.exports = router;
