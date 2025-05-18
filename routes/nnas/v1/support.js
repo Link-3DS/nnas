@@ -18,7 +18,7 @@ router.post('/validate/email', async (req, res) => {
         logger.error(err);
     }
 
-    res.send('ok');
+    res.send();
 });
 
 module.exports = router;

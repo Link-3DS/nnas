@@ -1,6 +1,8 @@
 require('dotenv/config');
 const { Pool } = require('pg');
+const bcrypt = require('bcrypt');
 const logger = require('./logger');
+const { nintendoPasswordHash, decryptToken, unpackToken } = require('./hash');
 
 const pool = new Pool({
   user: process.env.DB_USERNAME,
@@ -62,8 +64,73 @@ async function initializeTables() {
   }
 }
 
+async function getLNIDByPID(pid) {
+  try {
+    const res = await query('SELECT * FROM lnids WHERE pid = $1 LIMIT 1;', [pid]);
+    return res.rows[0] || null;
+  } catch (err) {
+    logger.error('Error fetching LNID by PID:', err);
+    return null;
+  }
+}
+
+async function getLNIDByUsername(username) {
+  try {
+    const usernameLower = username.toLowerCase();
+    const res = await query('SELECT * FROM lnids WHERE usernameLower = $1 LIMIT 1;', [usernameLower]);
+    return res.rows[0] || null;
+  } catch (err) {
+    logger.error('Error fetching LNID by username:', err);
+    return null;
+  }
+}
+
+async function getLNIDByTokenAuth(token) {
+  try {
+    const decryptedToken = decryptToken(Buffer.from(token, 'hex'));
+    const unpackedToken = unpackToken(decryptedToken);
+    const lnid = await getLNIDByPID(unpackedToken.pid);
+    if (lnid) {
+      const expireTime = Math.floor(Number(unpackedToken.expire_time) / 1000);
+      if (Math.floor(Date.now() / 1000) > expireTime) {
+        return null;
+      }
+    }
+    return lnid;
+  } catch (error) {
+    console.log(logger.error(error));
+    return null;
+  }
+}
+
+async function getLNIDByBasicAuth(token) {
+  try {
+    const decoded = Buffer.from(token, 'base64').toString();
+    const parts = decoded.split(' ');
+    const username = parts[0];
+    const password = parts[1];
+    const res = await query('SELECT * FROM lnids WHERE username = $1 LIMIT 1;', [username]);
+    const lnid = res.rows[0];
+    if (!lnid) {
+      return null;
+    }
+    const hashedPassword = nintendoPasswordHash(password, lnid.pid);
+    if (!bcrypt.compareSync(hashedPassword, lnid.password)) {
+      return null;
+    }
+    return lnid;
+  } catch (err) {
+    logger.error('Error in getLNIDByBasicAuth:', err);
+    return null;
+  }
+}
+
 module.exports = {
   pool,
   connect,
-  query
+  query,
+  getLNIDByPID,
+  getLNIDByUsername,
+  getLNIDByTokenAuth,
+  getLNIDByBasicAuth
 };

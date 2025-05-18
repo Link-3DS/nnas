@@ -25,7 +25,7 @@ router.get('/:username', async (req, res) => {
     return res.status(400).send(xmlResponse);
   }
 
-  res.send('ok');
+  res.send();
 });
 
 
@@ -34,8 +34,15 @@ router.post('/', async (req, res) => {
 
   const result = await database.query('SELECT 1 FROM lnids WHERE username = $1', [person.user_id]);
   if (result.rows.length > 0) {
-    res.status = 400;
-    return res.send('<?xml version="1.0"?><errors><error><code>0100</code><message>Account ID already exists</message></error></errors>');
+    const xmlResponse = xmlbuilder.create({
+      errors: {
+          error: {
+            code: '0100',
+            message: 'Account ID already exists'
+          }
+        }
+    }).end();
+    return res.status(400).send(xmlResponse);
   }
 
   try {
