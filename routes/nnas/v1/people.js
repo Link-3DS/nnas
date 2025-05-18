@@ -4,21 +4,9 @@ const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const database = require('../../../database');
 const logger = require('../../../logger');
+const { nintendoPasswordHash } = require('../../../hash');
 
 const router = Router();
-
-function nintendoPasswordHash(password, pid) {
-	const pidBuffer = Buffer.alloc(4);
-	pidBuffer.writeUInt32LE(pid);
-
-	const unpacked = Buffer.concat([
-		pidBuffer,
-		Buffer.from('\x02\x65\x43\x46'),
-		Buffer.from(password)
-	]);
-
-	return crypto.createHash('sha256').update(unpacked).digest().toString('hex');
-}
 
 router.get('/:username', async (req, res) => {
   const { username } = req.params;

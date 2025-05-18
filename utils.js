@@ -32,4 +32,6 @@ function createAgreement(
     };
 }
 
-module.exports = { createAgreement };
+module.exports = { 
+    createAgreement
+};
