@@ -46,11 +46,18 @@ router.post('/', async (req, res) => {
   }
 
   try {
-    const pid = 1;
+    const pid = await (async () => {
+      let p;
+        do {
+          p = Math.floor(Math.random() * (1799999999 - 1000000000 + 1) + 1000000000);
+        } while ((await database.query('SELECT 1 FROM lnids WHERE pid = $1 LIMIT 1;', [p])).rowCount > 0);
+      return p;
+    })();
+
     const primaryPasswordHash = nintendoPasswordHash(person.password, pid);
     const passwordHash = await bcrypt.hash(primaryPasswordHash, 10);
 
-    const now = new Date().toISOString();
+    const nowDate = new Date().toISOString();
 
     const email = {
       address: person.email.address.toLowerCase(),
@@ -106,8 +113,8 @@ router.post('/', async (req, res) => {
       0n,
       0,
       'prod',
-      now,
-      now,
+      nowDate,
+      nowDate,
       person.user_id,
       person.user_id.toLowerCase(),
       passwordHash,
