@@ -3,4 +3,4 @@
 docker build -t nnas .
 
 ABS_PATH=$(pwd)
-docker run -it --rm -v "$ABS_PATH":/app nnas
+docker run -it -d --name nnas -v "$ABS_PATH":/app nnas
