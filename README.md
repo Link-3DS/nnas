@@ -24,7 +24,7 @@ Before starting the installation, make sure you have installed:
 
 | Name                                          | Description                                                                                       | Optional |
 |-----------------------------------------------|--------------------------------------------------------------------------------------------------|----------|
-| `HTTP_PORT`                                   | Server Port                                    | No       |
+| `HTTP_PORT`                                   | Server Port                                    | Yes      |
 | `DB_HOST`                                     | Database Host                                  | No       |
 | `DB_PORT`                                     | Database Port                                  | No       |
 | `DB_USERNAME`                                 | Database Username                              | No       |
