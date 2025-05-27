@@ -38,7 +38,7 @@ app.use((req, res, next) => {
 app.use(conntest);
 app.use(nnas);
 
-app.listen(process.env.HTTP_PORT, () => {
+app.listen(process.env.HTTP_PORT || 3000, () => {
   database.connect();
-  logger.success(`Server is running on port ${process.env.HTTP_PORT}.`);
+  logger.success(`Server is running on port ${process.env.HTTP_PORT || 3000}.`);
 });
