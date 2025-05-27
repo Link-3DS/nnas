@@ -91,7 +91,7 @@ function unpackToken(token) {
 
 module.exports = {
     nintendoPasswordHash,
-	generateToken,
-	decryptToken,
-	unpackToken
+    generateToken,
+    decryptToken,
+    unpackToken
 };
