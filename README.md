@@ -28,6 +28,6 @@ Before starting the installation, make sure you have installed:
 | `DB_HOST`                                     | Database Host                                  | No       |
 | `DB_PORT`                                     | Database Port                                  | No       |
 | `DB_USERNAME`                                 | Database Username                              | No       |
-| `DB_PASSWORD`                                 | Database password                              | No       |
-| `DB_NAME`                                     | Database name                                  | No       |
-| `AES_KEY`                                     | AES-KEY                                        | No       |
+| `DB_PASSWORD`                                 | Database Password                              | No       |
+| `DB_NAME`                                     | Database Name                                  | No       |
+| `AES_KEY`                                     | AES Key                                        | No       |
