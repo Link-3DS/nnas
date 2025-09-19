@@ -28,7 +28,6 @@ router.get('/:username', async (req, res) => {
   res.send();
 });
 
-
 router.post('/', async (req, res) => {
   const { person } = req.body;
 

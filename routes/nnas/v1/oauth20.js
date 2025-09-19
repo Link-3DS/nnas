@@ -6,7 +6,6 @@ const { generateToken } = require('../../../hash');
 
 const router = Router();
 
-// TODO: Change this
 router.post('/access_token/generate', async (req, res) => {
     const { grant_type, user_id, password, refresh_token } = req.body;
 
